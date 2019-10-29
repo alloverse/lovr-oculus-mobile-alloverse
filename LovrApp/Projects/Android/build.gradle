@@ -11,13 +11,13 @@ android {
   // -debug.apk or -release.apk appended to it.
   // The filename doesn't effect the Android installation process.
   // Use only letters to remain compatible with the package name.
-  project.archivesBaseName = "appsample"
+  project.archivesBaseName = "alloverse"
 
   defaultConfig {
     // Gradle replaces the manifest package with this value, which must
     // be unique on a system.  If you don't change it, a new app
     // will replace an older one.
-    applicationId "org.lovr." + project.archivesBaseName
+    applicationId "com.alloverse.visor"
 
     // override app plugin abiFilters for both 32 and 64-bit support
     externalNativeBuild {
@@ -43,7 +43,7 @@ android {
       java.srcDirs = ['../../java']
       jniLibs.srcDir 'libs'
       res.srcDirs = ['../../res']
-      assets.srcDirs = ['../../assets']
+      assets.srcDirs = ['../../assets', '../../../../../lua']
 
       def addPathFrom = {
         def pathFilePath = it // Closure argument
@@ -68,5 +68,9 @@ android {
       addPathFrom('../../local_assets')
       addPathFrom('../../local_assets.txt')
     }
+  }
+
+  lintOptions {
+    abortOnError false
   }
 }

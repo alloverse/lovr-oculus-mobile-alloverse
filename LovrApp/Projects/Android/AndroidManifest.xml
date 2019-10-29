@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This will be merged with either AndroidManifest-Debug or AndroidManifest-Release, as appropriate -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		package="org.lovr.appsample"
+		package="com.alloverse.visor"
 		android:versionCode="3" 
 		android:versionName="1.0.3" android:installLocation="auto" >
 
@@ -20,7 +20,7 @@
 		/>
 
 	<!-- YOUR NAME HERE -->
-	<application android:allowBackup="false" android:label="LovrApp">
+	<application android:allowBackup="false" android:label="Alloverse">
 		<meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>
 		<!-- The activity is the built-in NativeActivity framework class. -->
 		<!-- launchMode is set to singleTask because there should never be multiple copies of the app running. -->
