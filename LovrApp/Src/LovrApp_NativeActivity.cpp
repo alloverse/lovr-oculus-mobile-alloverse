@@ -1467,6 +1467,7 @@ void android_main( struct android_app * app )
 			// Possibly convince lovr main project to accept a dichotomy between 'display size' and 'recommended renderbuffer size'?
 			bridgeData.suggestedEyeTexture.width = vrapi_GetSystemPropertyInt( &appState.Java, VRAPI_SYS_PROP_SUGGESTED_EYE_TEXTURE_WIDTH );
 			bridgeData.suggestedEyeTexture.height = vrapi_GetSystemPropertyInt( &appState.Java, VRAPI_SYS_PROP_SUGGESTED_EYE_TEXTURE_HEIGHT );
+			bridgeData.displayFrequency = (float) vrapi_GetSystemPropertyInt( &appState.Java, VRAPI_SYS_PROP_DISPLAY_REFRESH_RATE );
 			bridgeData.zeroDisplayTime = vrapi_GetPredictedDisplayTime( appState.Ovr, 0 );
 
 			// What type of device is this? Collapse device ranges into general types
@@ -1523,6 +1524,14 @@ void android_main( struct android_app * app )
 		BridgeLovrUpdateData updateData;
 
 		updateData.displayTime = predictedDisplayTime;
+
+		// Boundary
+		ovrPosef boundsPose;
+		ovrVector3f boundsScale;
+		if (vrapi_GetBoundaryOrientedBoundingBox(appState.Ovr, &boundsPose, &boundsScale) == ovrSuccess) {
+			updateData.boundsWidth = boundsScale.x * 2.f;
+			updateData.boundsDepth = boundsScale.z * 2.f;
+		}
 
 		ovrApp_HandleInput( &appState, updateData, predictedDisplayTime );
 
