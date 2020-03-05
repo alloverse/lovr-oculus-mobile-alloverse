@@ -6,6 +6,10 @@ dependencies {
 
 apply from: "${rootProject.projectDir}/VrApp.gradle"
 
+// thanks https://www.thoughtworks.com/es/insights/blog/signing-open-source-android-apps-without-disclosing-passwords
+def keyprops = new Properties()
+keyprops.load(new FileInputStream(project.file("keys.properties")))
+
 android {
   // This is the name of the generated apk file, which will have
   // -debug.apk or -release.apk appended to it.
@@ -33,6 +37,20 @@ android {
     }
   }
 
+  signingConfigs {
+    debug {
+        storeFile project.file("android.debug.keystore")
+        keyAlias "Alloverse Debug" 
+        storePassword keyprops.debugStorePassword
+        keyPassword keyprops.debugKeyPassword
+    }
+    release {
+      storeFile project.file("android.release.keystore")
+      keyAlias "Alloverse Release"
+      storePassword keyprops.releaseStorePassword
+      keyPassword keyprops.releaseKeyPassword
+    }
+  }
   sourceSets {
     main {
       manifest.srcFile 'AndroidManifest.xml'
