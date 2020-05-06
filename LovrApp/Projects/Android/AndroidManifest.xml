@@ -14,8 +14,9 @@
 	<!-- Volume Control -->
 	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-	<!-- YOUR NAME HERE -->
+  <!-- YOUR NAME HERE -->
 	<application android:allowBackup="false" android:label="Alloverse">
 		<meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>
 		<!-- The activity is the built-in NativeActivity framework class. -->
