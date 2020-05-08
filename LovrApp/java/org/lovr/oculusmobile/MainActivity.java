@@ -31,11 +31,51 @@ a dlopen on the same lib a second time.
 infinitely looping when libraries have circular dependencies.
 */
 
-public class MainActivity extends android.app.NativeActivity {
+import android.Manifest;
+import android.app.NativeActivity;
+import android.support.v4.app.ActivityCompat;
+import android.content.pm.PackageManager;
+
+public class MainActivity extends android.app.NativeActivity implements ActivityCompat.OnRequestPermissionsResultCallback
+{
 	
 	/** Load jni .so on initialization */
-	static {
-		System.loadLibrary( "vrapi" );
-		System.loadLibrary( "lovractivity" );
-	}
+    static {
+        System.loadLibrary( "vrapi" );
+        System.loadLibrary( "lovractivity" );
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("LOVR", "MainActivity.onCreate()");
+        RequestPermissionsIfNeeded();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            Log.i("LOVR", "RECORD_AUDIO permissions have now been granted.");
+        }
+        else
+        {
+            Log.i("LOVR", "RECORD_AUDIO permissions were denied.");
+        }
+    }
+    
+    private void RequestPermissionsIfNeeded()
+    {
+        int existingPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+        if(existingPermission != PackageManager.PERMISSION_GRANTED)
+        {
+            Log.i("LOVR", "Asking for RECORD_AUDIO permissions.");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+        }
+        else
+        {
+          Log.i("LOVR", "RECORD_AUDIO permissions already granted.");
+        }
+    }
 }
