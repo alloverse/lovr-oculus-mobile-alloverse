@@ -35,6 +35,8 @@ import android.Manifest;
 import android.app.NativeActivity;
 import android.support.v4.app.ActivityCompat;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
+import 	android.util.Log;
 
 public class MainActivity extends android.app.NativeActivity implements ActivityCompat.OnRequestPermissionsResultCallback
 {
